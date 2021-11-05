@@ -1,0 +1,11 @@
+.idea
+.vscode
+misc.xml
+modules.xml
+vcs.xml
+.env
+.coverage
+.coveragerc
+__pycache__
+reports
+.DS_Store
