@@ -61,8 +61,6 @@ def create_app(app_env, testing=False):
     app.secret_key = config.SESSION_KEY  # enables flask session
     app.testing = testing  # true for pytest-flask testing env
 
-    logger.info(f"Start app: testing is {testing}")
-
     # Enable CORS.
     CORS(app)
 
