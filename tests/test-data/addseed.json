@@ -1,0 +1,15 @@
+{
+  "MRN": "TEST9189",
+  "STATUS": "ELIGIBLE",
+  "FIRST_NAME": "JOHN",
+  "LAST_NAME": "DOE",
+  "TEST_RESULT": "POSITIVE",
+  "EMAIL_ADDRESS": "john.doe@gmail.com",
+  "HOME_NUM": "989-888-5555",
+  "MOBILE_NUM": "989-555-1212",
+  "RACE": "Caucasian/White",
+  "ETHNIC_GROUP": "Not Hispanic/Latino",
+  "PAT_AGE": "47",
+  "PAT_SEX": "Male",
+  "RESULT_DATE": "11-01-2021 10:06"
+}

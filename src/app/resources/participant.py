@@ -96,7 +96,9 @@ class RedeemCoupon(Resource):
 
     def post(self):
         data = request.get_json()
-        return _process_post_requests(data, time_field=app.config["COUPON_REDEEM_DATE"])
+        return _process_post_requests(
+            data, time_field=app.config["COUPON_REDEEM_DATE"], action="Redeem"
+        )
 
 
 class Consent(Resource):
@@ -113,6 +115,7 @@ class Consent(Resource):
             participant_only=False,
             coll="consent",
             time_field=app.config["CONSENT_DATE"],
+            action="Consent",
         )
 
 
@@ -129,6 +132,7 @@ class Survey(Resource):
             participant_only=False,
             coll="survey",
             time_field=app.config["SURVEY_COMPLETION_DATE"] if submit else None,
+            action="Survey",
         )
 
 
@@ -176,14 +180,16 @@ class Participants(Resource):
                 for peer in peers:
                     peer["CONTACT_ID"] = utils.contact_id_str(contact_id)
                     contact_id += 1
-            elif data.get("ENROLLMENT_COMPLETED"):
+            if data.get("ENROLLMENT_COMPLETED"):
                 # no contact entered, check if enrollment is completed
                 if data.get("ENROLLMENT_COMPLETED") == "Y":
                     data[app.config["ENROLLMENT_COMPLETED"]] = utils.current_time()
         return _process_post_requests(data)
 
 
-def _process_post_requests(data, participant_only=True, coll=None, time_field=None):
+def _process_post_requests(
+    data, participant_only=True, coll=None, time_field=None, action=None
+):
     record_id = data.get(app.config["RECORD_ID"]) if data else None
     if not record_id:
         error_msg = "Record id is missing, cannot save data"
@@ -192,6 +198,14 @@ def _process_post_requests(data, participant_only=True, coll=None, time_field=No
 
     try:
         record_id = int(record_id)
+        if action is not None:
+            participant = db_utils.get_participant(
+                app.config["RECORD_ID"],
+                record_id,
+                app.config["FIELDS_FOR_DATES_CHECK"],
+            )
+            if participant and participant.get(app.config["ENROLLMENT_COMPLETED"]):
+                raise ValueError("11000")
         data["RECORD_ID"] = record_id
         if participant_only:
             # redeem and peers update
@@ -222,9 +236,7 @@ def _process_post_requests(data, participant_only=True, coll=None, time_field=No
         return utils.response_with_status_code("success", status.HTTP_200_OK)
     except Exception as err:
         if "11000" in str(err):
-            error_msg = (
-                f"{coll.capitalize()} was already completed for record {record_id}"
-            )
+            error_msg = f"{action} was already completed for record {record_id}"
         else:
             error_msg = (
                 f"Exception in saving {coll} data for record {record_id}: {str(err)}"

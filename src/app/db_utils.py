@@ -108,7 +108,7 @@ def insert_seed(doc):
     # Set _id to MRN to ensure MRN is unique
     doc["_id"] = doc["MRN"]
     field = app.config["RESULT_DATE"]
-    if field in doc:
+    if field in doc and doc[field] is not None and doc[field] != "":
         doc[field] = dateutil.parser.parse(doc[field])
     return _insert_one(app.config["COLLECTIONS"].get("seeds"), doc)
 

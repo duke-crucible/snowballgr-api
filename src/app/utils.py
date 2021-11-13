@@ -15,6 +15,10 @@ from app.services import logger
 
 # send email via sendgrid template
 def send_email(email, token, template_id, recipient, seed=None):
+    if app.testing:
+        # for testing only
+        return status.HTTP_202_ACCEPTED
+
     # Build the invitation email and submit the request to SendGrid
     logger.info("Sending email through sendgrid to recipient:" + email)
     message = Mail(
@@ -44,6 +48,9 @@ def send_email(email, token, template_id, recipient, seed=None):
 
 # send SMS text message via AWS Pinpoint
 def send_sms_txt(phone_number, coupon):
+    if app.testing:
+        # for testing only
+        return status.HTTP_202_ACCEPTED
     message = generate_sms_message(coupon)
     client = SmsClient.from_connection_string(app.config["SMS_CONNECTION_STRING"])
     to_number = "+1" + phone_number.replace("-", "")

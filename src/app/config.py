@@ -183,6 +183,12 @@ class DefaultConfig(object):
         PEER_COUPONS_LIST: 1,
         "_id": 0,
     }
+    # important dates
+    FIELDS_FOR_DATES_CHECK = {
+        CONSENT_DATE: 1,
+        SURVEY_COMPLETION_DATE: 1,
+        ENROLLMENT_COMPLETED: 1,
+    }
     # fields for coupon redeem page
     FIELDS_FOR_COUPON_REDEEM_PAGE = {
         "_id": 0,
@@ -231,7 +237,10 @@ class DefaultConfig(object):
         RECORD_ID: 1,
         "FIRST_NAME": 1,
         "LAST_NAME": 1,
+        EMAIL_ADDRESS: 1,
         MOBILE_NUM: 1,
+        HOME_NUM: 1,
+        "ZIP": 1,
         PAT_AGE: 1,
         "PTYPE": 1,
         PARTICIPANT_TOKEN: 1,

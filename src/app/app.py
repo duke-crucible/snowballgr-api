@@ -52,6 +52,7 @@ def register_services(app, *services):
 
 def create_app(app_env, testing=False):
     if testing is True:
+        logger.info("Creating app for testing...")
         app_env = "test"
     # Cannot use get_config in utils as Api is not bound with app yet
     config = CONFIGURATIONS[app_env]

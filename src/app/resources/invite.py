@@ -46,11 +46,11 @@ class SeedStatus(Resource):
             if new_status.upper() == "INCLUDE":
                 revert_step = 1
                 doc = _create_pdoc(current, "seed", current_time)
-                comment = _send_coupon(doc)
+                resp["msg"] = _send_coupon(doc)
                 doc["comments"] = [
                     {
                         "time": current_time.strftime("%Y-%m-%dT%H:%M:%S"),
-                        "comment": comment,
+                        "comment": resp["msg"],
                     }
                 ]
                 # create a participant, removed UPDATED_AT copied from seed
@@ -117,21 +117,6 @@ def _create_pdoc(from_data, ptype, timestamp):
     doc["PTYPE"] = ptype
     doc[app.config["COUPON_ISSUE_DATE"]] = timestamp
     return doc
-
-
-def _create_log(record_id, comment):
-    log = {
-        "_id": utils.record_id_str(record_id),
-        app.config["RECORD_ID"]: record_id,
-        "comments": [
-            {
-                "time": utils.current_time().strftime("%Y-%m-%dT%H:%M:%S"),
-                "comment": comment,
-            }
-        ],
-    }
-    logger.debug(f"Creating first log for record {record_id}: {log}")
-    return db_utils.insert_doc("crm", log)
 
 
 class InvitePeer(Resource):

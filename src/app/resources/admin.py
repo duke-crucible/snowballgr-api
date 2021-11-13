@@ -28,7 +28,6 @@ class Download(Resource):
             cursor = db_utils.download_report(collection)
             rl = list(cursor)
             df = pd.DataFrame(rl)
-            logger.debug(df)
             csv = df.to_csv(index=False, sep=",")
             return csv
         except Exception as err:
@@ -45,5 +44,4 @@ class DownloadFileFromURL(Resource):
             )
         logger.info(f"download file from {url}")
         df = pd.read_csv(url, index_col=0, parse_dates=[0])
-        logger.debug(df)
         return df.to_csv(sep=",")
