@@ -52,7 +52,7 @@ Before running this stack locally, the following environment variables must be s
 
 4. Integrate with UI
 
-    Now you have a running python Flask backend, follow [instructions](https://github.com/duke-crucible/snowballgr-ui/-/tree/dev#local-development) to start SnowballGR frontend at http://localhost:3000.
+    Now you have a running python Flask backend, follow [instructions](https://github.com/duke-crucible/snowballgr-ui#local-development) to start SnowballGR frontend at http://localhost:3000.
 
 5. Shell into the container
     ```bash
