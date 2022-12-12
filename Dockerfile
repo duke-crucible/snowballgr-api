@@ -1,4 +1,4 @@
-FROM python:3.8.11-slim-buster AS base
+FROM image-mirror-prod-registry.cloud.duke.edu/library/python:3.8.11-slim-buster AS base
 WORKDIR /app
 ENV \ 
     # so logs are not buffered
