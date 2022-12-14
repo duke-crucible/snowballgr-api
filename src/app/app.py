@@ -42,9 +42,11 @@ def register_endpoints(app):
     api.add_resource(TestSchedule, "/testschedule")
     api.add_resource(DownloadFileFromURL, "/downloadfile")
     api.add_resource(ConsentFormHistory, "/consentformhistory")
+    logger.info("All endpoints registered!")
 
 
 def register_services(app, *services):
+    logger.info("Registering services")
     # flask services all have the same syntax
     for service in services:
         service.init_app(app)

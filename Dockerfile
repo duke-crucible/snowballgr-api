@@ -30,6 +30,7 @@ CMD [ "gunicorn", \
   "--worker-tmp-dir=/dev/shm", \
   "--worker-class=gthread", \
   "--bind=0.0.0.0:8000", \
+  "--timeout=1000", \
   "--threads=4", \
   "--workers=2", \
   "run:app"]
@@ -47,6 +48,7 @@ CMD [ "/venv/bin/gunicorn", \
   "--worker-tmp-dir=/dev/shm", \
   "--worker-class=gthread", \
   "--bind=0.0.0.0:8000", \
+  "--timeout=1000", \
   "--threads=4", \
   "--workers=2", \
   "run:app"]
