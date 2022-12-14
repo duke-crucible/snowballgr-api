@@ -33,6 +33,7 @@ CMD [ "gunicorn", \
   "--timeout=1000", \
   "--threads=4", \
   "--workers=2", \
+  "--log-level=debug", \
   "run:app"]
 
 FROM base AS prod
@@ -51,4 +52,5 @@ CMD [ "/venv/bin/gunicorn", \
   "--timeout=1000", \
   "--threads=4", \
   "--workers=2", \
+  "--log-level=debug", \
   "run:app"]
